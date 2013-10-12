@@ -35,7 +35,8 @@ app.post('/blog/new', blog.submitNew);
 app.get('/blog/:id', blog.show);
 app.post('/blog/addComment', blog.addComment);
 
-mongoose.connect('mongodb://localhost:27017');
+var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost:27017';
+mongoose.connect(connectionString);
 
 // Start
 http.createServer(app).listen(app.get('port'), function(){
