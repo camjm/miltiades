@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 // Schema
 
-var PostSchema = new Schema({
+var ArticleSchema = new Schema({
 	title: {type : String, default : '', trim : true},
 	author: {type : String, default : '', trim : true},
 	body: {type : String, default : '', trim : true},
@@ -21,20 +21,20 @@ var PostSchema = new Schema({
 
 // Validation
 
-PostSchema.path('title').validate(function(title) {
+ArticleSchema.path('title').validate(function(title) {
 	return title.length > 0;
-}, 'Post title cannot be blank');
+}, 'Article title cannot be blank');
 
-PostSchema.path('title').validate(function(title) {
+ArticleSchema.path('title').validate(function(title) {
 	return title.length > 0;
-}, 'Post body cannot be blank');
+}, 'Article body cannot be blank');
 
-module.exports = mongoose.model("TaskModel", PostSchema);
+module.exports = mongoose.model("ArticleModel", ArticleSchema);
 
 
 // Methods
 
-PostSchema.methods = {
+ArticleSchema.methods = {
 
 	addComment: function(user, comment) {
 		this.comments.push({

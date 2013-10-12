@@ -1,6 +1,9 @@
 // Module dependencies.
 var express = require('express');
 var http = require('http');
+var mongoose = require('mongoose');
+var blog = require('./routes/blog');
+var index = require('./routes/index');
 
 var app = express();
 
@@ -25,9 +28,14 @@ app.configure('production', function() {
 });
 
 // Routes
-app.get('/', function(req, res){
-	res.render('index', { title: 'Express' });
-});
+app.get('/', index.index);
+app.get('/blog', blog.list);
+app.get('/blog/new', blog.enterNew);
+app.post('/blog/new', blog.submitNew);
+app.get('/blog/:id', blog.show);
+app.post('/blog/addComment', blog.addComment);
+
+mongoose.connect('mongodb://localhost:27017');
 
 // Start
 http.createServer(app).listen(app.get('port'), function(){
