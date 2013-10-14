@@ -7,6 +7,7 @@ var index = require('./routes/index');
 
 var app = express();
 
+
 // Configuration
 app.configure( function() {
 	app.set('port', process.env.PORT || 3000);
@@ -27,6 +28,7 @@ app.configure('production', function() {
 	app.use(express.errorHandler());
 });
 
+
 // Routes
 app.get('/', index.index);
 app.get('/blog', blog.list);
@@ -35,8 +37,14 @@ app.post('/blog/new', blog.submitNew);
 app.get('/blog/:id', blog.show);
 app.post('/blog/addComment', blog.addComment);
 
+
+// ODM Connection to Database
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost:27017';
-mongoose.connect(connectionString);
+mongoose.connect(connectionString, function(error){
+	if (error) throw error;
+	console.log('Successfully connected to MongoDB');
+});
+
 
 // Start
 http.createServer(app).listen(app.get('port'), function(){

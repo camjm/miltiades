@@ -29,8 +29,6 @@ ArticleSchema.path('title').validate(function(title) {
 	return title.length > 0;
 }, 'Article body cannot be blank');
 
-module.exports = mongoose.model("ArticleModel", ArticleSchema);
-
 
 // Methods
 
@@ -45,3 +43,6 @@ ArticleSchema.methods = {
 	}
 
 };
+
+
+module.exports = mongoose.model("ArticleModel", ArticleSchema);
