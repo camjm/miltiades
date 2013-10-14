@@ -1,8 +1,0 @@
-express -c stylus
-npm install -d
-
-git init
-git add .
-git commit -m "initial app template"
-git remote add azure https://cammackay@miltiades.scm.azurewebsites.net:443/miltiades.git
-git push azure master
