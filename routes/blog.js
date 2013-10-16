@@ -7,6 +7,7 @@ exports.list = function (req, res) {
 		} else {
 			res.render('list.jade', {
 	    		title: 'Blog',
+	    		user: req.user,
 	    		articles: articles
 			});
 		}
@@ -23,7 +24,8 @@ exports.addComment = function (req, res) {
 
 exports.enterNew = function (req, res) {
 	res.render('new.jade', {
-		title: 'New Post'
+		title: 'New Post',
+		user: req.user
 	});
 };
 
