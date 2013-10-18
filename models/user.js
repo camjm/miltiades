@@ -1,7 +1,7 @@
 // Dependencies
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 // Constants
 var SALT_WORK_FACTOR = 10;
@@ -13,7 +13,7 @@ var UserSchema = new Schema({
 	username: { type: String, required: true, index: { unique: true } },
 	password: { type: String, required: true },
 	loginAttempts: { type: Number, required: true, default: 0 },
-	lockUntil { type: Number }
+	lockUntil: { type: Number }
 });
 
 // Virtuals
@@ -125,4 +125,4 @@ UserSchema.statics.getAuthenticated = function(username, password, callback) {
 	});
 };
 
-model.exports = mongoose.model("UserModel", UserSchema);
+module.exports = mongoose.model("UserModel", UserSchema);
