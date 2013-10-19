@@ -45,8 +45,8 @@ function ensureAuthenticated(req, res, next) {
 
 // Routes
 app.get('/', index.index);
-app.get('/signup', user.signup);
-app.post('/signup', user.signupPost);
+// app.get('/signup', user.signup);
+// app.post('/signup', user.signupPost);
 app.get('/login', user.login);
 app.post('/login', user.loginPost);
 app.get('/logout', user.logout);
