@@ -6,11 +6,7 @@ var blog = require('./routes/blog');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var UserModel = require('./models/user.js');
-
 var app = express();
-
 
 // Configuration
 app.configure( function() {
@@ -37,65 +33,22 @@ app.configure('production', function() {
 });
 
 // Passport Configuration
-passport.serializeUser(function(user, done) {
-	done(null, user.id);
-});
+require('./config/passport')();
 
-passport.deserializeUser(function(id, done) {
-	UserModel.findById(id, function(error, user){
-		done(error, user);
-	});
-});
-
-passport.use(new LocalStrategy(function(username, password, done) {
-	UserModel.getAuthenticated(username, password, function(error, user, reason) {
-		if (error) {
-			return done(error);
-		}
-		if (user) {
-			return done(null, user);
-		}
-		var message;
-		switch(reason) {
-			case UserModel.failedLogin.NOT_FOUND:
-			case UserModel.failedLogin.PASSWORD_INCORRECT:
-				message = "Incorrect username and/or password";
-				break;
-			case UserModel.failedLogin.MAX_ATTEMPTS:
-				message = "Max attempts"
-		}
-		return done(null, false, message);
-	});
-}));
-
+// Authorization
 function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
-	res.redirect('/');
+	res.redirect('/login');
 }
 
 // Routes
 app.get('/', index.index);
-app.get('/singup', user.signup);
+app.get('/signup', user.signup);
 app.post('/signup', user.signupPost);
-app.get('/login', function (req, res) {
-	res.render('login.jade', {
-		title: 'Login',
-		user: req.user,
-		message: req.session.messages
-	});
-});
-app.post(
-	'/login', 
-	passport.authenticate('Local', {
-		failureRedirect: '/login',
-		failureFlash: true	// What is this? Can be a string
-	}),
-	function (req, res) {
-		res.redirect('/');
-	}
-);
+app.get('/login', user.login);
+app.post('/login', user.loginPost);
 app.get('/logout', user.logout);
 
 // Protected Routes
@@ -125,7 +78,7 @@ app.post(
 	blog.addComment);
 
 
-// ODM Connection to Database
+// Mongoose ODM Connection to Database
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost:27017';
 mongoose.connect(connectionString, function(error){
 	if (error) throw error;
@@ -133,7 +86,7 @@ mongoose.connect(connectionString, function(error){
 });
 
 
-// Start
+// Start App
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
 });

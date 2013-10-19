@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	form(method="post")
+		div
+			div
+				span Login :
+				input(type="text", name="username", id="signupUsername")
+			div
+				span Password :
+				input(type="text", name="password", id="signupPassword")
+			div
+				span Confirm Password :
+				input(type="text", name="passwordConfirm", id="signupPasswordConfirm")
+			div#signupSubmit
+				input(type="submit", value="Create")
+	if message
+		p= message

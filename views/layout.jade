@@ -4,4 +4,11 @@ html
 		title= title
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
+		if user
+			p Welcome #{user.username}
+			a(href="/Logout") Logout
+		else
+			a(href="/Login") Login
+			a(href="/Signup") Signup
+		h1= title
 		block content
