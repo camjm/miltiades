@@ -5,11 +5,3 @@ body {
 a {
   color: #00b7ff;
 }
-input {
-  border-color: #808080;
-  border-width: 1px;
-  border-style: solid;
-}
-input.invalid {
-  border-color: #f00;
-}

@@ -22,7 +22,3 @@ block content
 			- each error in errors
 				div.validationError
 					p= error.type
-				script(type='text/javascript').
-					$(document).ready(function () {
-						$('input[name=!{error.path}]').addClass('invalid');
-					});

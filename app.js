@@ -45,7 +45,9 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
-	// TODO if admin...
+	if (req.isAuthenticated() && req.user.admin) {
+		return next();
+	} 
 	res.statusCode = 403;
 	res.render('forbidden.jade', {
 		title: 'Not Authorized',
