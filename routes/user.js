@@ -19,17 +19,19 @@ exports.signup = function(req, res) {
 exports.signupPost = function(req, res) {
 	var newUser = User({
 		username: req.param('username'),
-		password: req.param('password')
+		password: req.param('password'),
+		email: req.param('email')
 	});
 	newUser.save(function(error, user) {
 		if (error) {
-			// show errors on signup
+			if (error.name !== "ValidationError") throw error;
+			// show user validation errors on signup
 			res.render('signup.jade', {
 				title: 'Signup',
 				user: req.user,
-				message: 'That username has already been taken, please select another'
+				errors: error.errors
 			});
-		} else {
+		} else if (user) {
 			// login the new user once successfully signed up
 			req.logIn(user, function (error) {
 				if (error) {
@@ -65,7 +67,12 @@ exports.loginPost = function(req, res, next) {
 	  		if (error) { 
 	  			return next(error); 
 	  		}
-	  		return res.redirect('/blog');
+	  		var url = '/blog';
+	  		if (req.session.returnUrl) {
+	      		url = req.session.returnUrl;
+	      		delete req.session.returnUrl;
+		    }
+	  		return res.redirect(url);
 		});
 	})(req, res, next);
 };

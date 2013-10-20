@@ -12,6 +12,7 @@ block content
 			div#loginSubmit
 				input(type="submit", value="Login")
 	if message
-		p= message
+		#validationErrors
+			p= message
 	div
 		a(href="/Signup") Signup

@@ -12,7 +12,17 @@ block content
 			div
 				span Confirm Password :
 				input(type="text", name="passwordConfirm", id="signupPasswordConfirm")
+			div
+				span Email :
+				input(type="text", name="email", id="signupEmail")
 			div#signupSubmit
 				input(type="submit", value="Create")
-	if message
-		p= message
+	if errors
+		#validationErrors
+			- each error in errors
+				div.validationError
+					p= error.type
+				script(type='text/javascript').
+					$(document).ready(function () {
+						$('input[name=!{error.path}]').addClass('invalid');
+					});

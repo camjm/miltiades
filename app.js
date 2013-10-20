@@ -40,13 +40,23 @@ function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
+	req.session.returnUrl = req.url;
 	res.redirect('/login');
+}
+
+function ensureAdmin(req, res, next) {
+	// TODO if admin...
+	res.statusCode = 403;
+	res.render('forbidden.jade', {
+		title: 'Not Authorized',
+		user: req.user
+	});
 }
 
 // Routes
 app.get('/', index.index);
-// app.get('/signup', user.signup);
-// app.post('/signup', user.signupPost);
+app.get('/signup', user.signup);
+app.post('/signup', user.signupPost);
 app.get('/login', user.login);
 app.post('/login', user.loginPost);
 app.get('/logout', user.logout);
@@ -62,11 +72,13 @@ app.get(
 	blog.list);
 app.get(
 	'/blog/new', 
-	ensureAuthenticated, 
+	[ensureAuthenticated,
+	ensureAdmin], 
 	blog.enterNew);
 app.post(
 	'/blog/new', 
-	ensureAuthenticated, 
+	[ensureAuthenticated,
+	ensureAdmin],
 	blog.submitNew);
 app.get(
 	'/blog/:id', 

@@ -12,6 +12,8 @@ var LOCK_TIME = 2 * 60 * 60 * 1000;	// 2 hour lock
 var UserSchema = new Schema({
 	username: { type: String, required: true, index: { unique: true } },
 	password: { type: String, required: true },
+	email: { type: String, required: true },
+	admin: { type: Boolean, required: true, default: false },
 	loginAttempts: { type: Number, required: true, default: 0 },
 	lockUntil: { type: Number }
 });
@@ -125,4 +127,31 @@ UserSchema.statics.getAuthenticated = function(username, password, callback) {
 	});
 };
 
-module.exports = mongoose.model("UserModel", UserSchema);
+// Validation
+var UserModel =  mongoose.model("UserModel", UserSchema);
+
+UserModel.schema.path('username').validate(function(username, callback) {
+	UserModel.findOne({username: username}, function(error, user) {
+		if (error) throw error;
+		callback(!user);
+	});
+}, 'Username has already been taken');
+
+UserModel.schema.path('password').validate(function(password) {
+	return password.length > 4;
+}, 'Password must be atleast 5 characters long');
+
+UserModel.schema.path('email').validate(function(email) {
+	var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	return emailRegex.test(email);
+}, 'User email must be valid');
+
+UserModel.schema.path('email').validate(function(email, callback) {
+	UserModel.findOne({email: email}, function(error, user) {
+		if (error) throw error;
+		callback(!user);
+	});
+}, 'Email is taken by another user');
+
+// Module Export
+module.exports = UserModel;
