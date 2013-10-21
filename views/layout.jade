@@ -5,13 +5,20 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script(src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js", type='text/javascript').
 	body
-		div#navigation
-			if user
-				p Welcome #{user.username}
-				a(href="/Logout") Logout
-			else
-				a(href="/Login") Login
-				a(href="/Signup") Signup
-		div#content
+		div#nav-bar
+			div.centered
+				ul.menu
+				ul.account
+					if user
+						li
+							a(href="/Account")= user.username
+						li
+							a(href="/Logout") Logout
+					else
+						li
+							a(href="/Login") Login
+						li
+							a(href="/Signup") Signup
+		div#content.centered
 			h1= title
 			block content
