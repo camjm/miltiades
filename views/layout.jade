@@ -1,24 +1,8 @@
 doctype 5
 html
-	head
-		title= title
-		link(rel='stylesheet', href='/stylesheets/style.css')
-		script(src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js", type='text/javascript').
+	include head
 	body
-		div#nav-bar
-			div.centered
-				ul.menu
-				ul.account
-					if user
-						li
-							a(href="/Account")= user.username
-						li
-							a(href="/Logout") Logout
-					else
-						li
-							a(href="/Login") Login
-						li
-							a(href="/Signup") Signup
+		include header
 		div#content.centered
 			h1= title
 			block content

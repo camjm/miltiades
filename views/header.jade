@@ -1,0 +1,14 @@
+div#nav-bar
+	div.centered
+		ul.menu
+		ul.account
+			if user
+				li
+					a(href="/Account")= user.username
+				li
+					a(href="/Logout") Logout
+			else
+				li
+					a(href="/Login") Login
+				li
+					a(href="/Signup") Signup

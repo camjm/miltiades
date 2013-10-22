@@ -24,7 +24,7 @@ app.configure( function() {
 	app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function() {
+app.configure('development', function() {	
 	app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
 });
 
@@ -48,11 +48,12 @@ function ensureAdmin(req, res, next) {
 	if (req.isAuthenticated() && req.user.admin) {
 		return next();
 	} 
-	res.statusCode = 403;
-	res.render('forbidden.jade', {
-		title: 'Not Authorized',
-		user: req.user
-	});
+	throw new Error('tessdfsdffdsdfasfdst');
+	// res.statusCode = 403;
+	// res.render('forbidden.jade', {
+	// 	title: 'Not Authorized',
+	// 	user: req.user
+	// });
 }
 
 // Routes

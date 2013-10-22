@@ -2,7 +2,7 @@ var User = require('../models/user.js');
 var passport = require('passport');
 
 exports.list = function(req, res) {
-	res.render('user_list.jade', {
+	res.render('user/list.jade', {
 		title: 'Signup',
 		user: req.user,
 		users: null	// TODO	
@@ -10,7 +10,7 @@ exports.list = function(req, res) {
 };
 
 exports.signup = function(req, res) {
-	res.render('signup.jade', {
+	res.render('user/signup.jade', {
 		title: 'Signup',
 		user: req.user
 	});
@@ -26,7 +26,7 @@ exports.signupPost = function(req, res) {
 		if (error) {
 			if (error.name !== "ValidationError") throw error;
 			// show user validation errors on signup
-			res.render('signup.jade', {
+			res.render('user/signup.jade', {
 				title: 'Signup',
 				user: req.user,
 				errors: error.errors
@@ -45,7 +45,7 @@ exports.signupPost = function(req, res) {
 };
 
 exports.login = function(req, res) {
-	res.render('login.jade', {
+	res.render('user/login.jade', {
 		title: 'Login',
 		user: req.user
 	});
@@ -57,7 +57,7 @@ exports.loginPost = function(req, res, next) {
 			return next(error); 
 		}
 		if (!user) {
-			  return res.render('login.jade', {
+			  return res.render('user/login.jade', {
 				title: 'Login',
 				user: req.user,
 				message: info
@@ -78,7 +78,7 @@ exports.loginPost = function(req, res, next) {
 };
 
 exports.account = function(req, res) {
-	res.render('account.jade', {
+	res.render('user/account.jade', {
 		title: 'Account',
 		user: req.user
 	});

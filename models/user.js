@@ -138,8 +138,8 @@ UserModel.schema.path('username').validate(function(username, callback) {
 }, 'Username has already been taken');
 
 UserModel.schema.path('password').validate(function(password) {
-	return password.length > 4;
-}, 'Password must be atleast 5 characters long');
+	return password.length > 3;
+}, 'Password must be atleast 4 characters long');
 
 UserModel.schema.path('email').validate(function(email) {
 	var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;

@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
 	form(method="post")
@@ -19,6 +19,6 @@ block content
 				input(type="submit", value="Create")
 	if errors
 		#validationErrors
-			- each error in errors
-				div.validationError
-					p= error.type
+			for error in errors
+				include validationError
+				
