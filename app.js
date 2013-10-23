@@ -6,6 +6,7 @@ var blog = require('./routes/blog');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var passport = require('passport');
+var viewdata = require('./middleware/viewdata');
 var app = express();
 
 // Configuration
@@ -20,6 +21,7 @@ app.configure( function() {
 	app.use(require('stylus').middleware({src: __dirname + '/public'}));
 	app.use(passport.initialize());
   	app.use(passport.session());
+  	app.use(viewdata);
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
@@ -48,12 +50,11 @@ function ensureAdmin(req, res, next) {
 	if (req.isAuthenticated() && req.user.admin) {
 		return next();
 	} 
-	throw new Error('tessdfsdffdsdfasfdst');
-	// res.statusCode = 403;
-	// res.render('forbidden.jade', {
-	// 	title: 'Not Authorized',
-	// 	user: req.user
-	// });
+	res.statusCode = 403;
+	res.render('forbidden.jade', {
+		title: 'Not Authorized',
+		user: req.user
+	});
 }
 
 // Routes
@@ -65,6 +66,11 @@ app.post('/login', user.loginPost);
 app.get('/logout', user.logout);
 
 // Protected Routes
+app.get(
+	'/users',
+	[ensureAuthenticated,
+	ensureAdmin], 
+	user.list);
 app.get(
 	'/account', 
 	ensureAuthenticated, 

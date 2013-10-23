@@ -2,21 +2,26 @@ var User = require('../models/user.js');
 var passport = require('passport');
 
 exports.list = function(req, res) {
-	res.render('user/list.jade', {
-		title: 'Signup',
-		user: req.user,
-		users: null	// TODO	
+	User.find(function(error, users) {
+		if (error) {
+			throw error;
+		} else {
+			res.render('user/list.jade', {
+				title: 'Users',
+				users: users	
+			});
+		}
 	});
+	
 };
 
 exports.signup = function(req, res) {
 	res.render('user/signup.jade', {
-		title: 'Signup',
-		user: req.user
+		title: 'Signup'
 	});
 };
 
-exports.signupPost = function(req, res) {
+exports.signupPost = function(req, res, next) {
 	var newUser = User({
 		username: req.param('username'),
 		password: req.param('password'),
@@ -28,7 +33,6 @@ exports.signupPost = function(req, res) {
 			// show user validation errors on signup
 			res.render('user/signup.jade', {
 				title: 'Signup',
-				user: req.user,
 				errors: error.errors
 			});
 		} else if (user) {
@@ -46,8 +50,7 @@ exports.signupPost = function(req, res) {
 
 exports.login = function(req, res) {
 	res.render('user/login.jade', {
-		title: 'Login',
-		user: req.user
+		title: 'Login'
 	});
 };
 
@@ -59,7 +62,6 @@ exports.loginPost = function(req, res, next) {
 		if (!user) {
 			  return res.render('user/login.jade', {
 				title: 'Login',
-				user: req.user,
 				message: info
 			});
 		}
@@ -79,8 +81,7 @@ exports.loginPost = function(req, res, next) {
 
 exports.account = function(req, res) {
 	res.render('user/account.jade', {
-		title: 'Account',
-		user: req.user
+		title: 'Account'
 	});
 };
 

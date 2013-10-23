@@ -3,11 +3,10 @@ var Article = require('../models/article.js');
 exports.list = function (req, res) {
 	Article.find(function(error, articles) {
 		if (error) {
-			// redirect to 500
+			throw error;
 		} else {
 			res.render('blog/list.jade', {
 	    		title: 'Blog',
-	    		user: req.user,
 	    		articles: articles
 			});
 		}
@@ -24,8 +23,7 @@ exports.addComment = function (req, res) {
 
 exports.enterNew = function (req, res) {
 	res.render('blog/new.jade', {
-		title: 'New Post',
-		user: req.user
+		title: 'New Post'
 	});
 };
 
@@ -37,7 +35,7 @@ exports.submitNew = function (req, res) {
 	});
 	newArticle.save(function(error, article) {
 		if (error) {
-			// redirect to 500
+			throw error;
 		} else {
 			res.redirect('/');
 		}
