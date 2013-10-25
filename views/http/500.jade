@@ -1,0 +1,6 @@
+extends ../layout
+
+block content
+	p An error occured when processing your request.
+	if settings['verbose errors']
+		pre= error.stack

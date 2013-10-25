@@ -7,6 +7,8 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var passport = require('passport');
 var viewdata = require('./middleware/viewdata');
+var unrouted = require('./middleware/unrouted');
+var errorhandling = require('./middleware/errorhandling');
 var app = express();
 
 // Configuration
@@ -24,14 +26,16 @@ app.configure( function() {
   	app.use(viewdata);
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
+	app.use(unrouted);
+	app.use(errorhandling);
 });
 
 app.configure('development', function() {	
-	app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+	app.enable('verbose errors');
 });
 
 app.configure('production', function() {
-	app.use(express.errorHandler());
+	app.disable('verbose errors');
 });
 
 // Passport Configuration
@@ -49,12 +53,13 @@ function ensureAuthenticated(req, res, next) {
 function ensureAdmin(req, res, next) {
 	if (req.isAuthenticated() && req.user.admin) {
 		return next();
-	} 
-	res.statusCode = 403;
-	res.render('forbidden.jade', {
-		title: 'Not Authorized',
-		user: req.user
-	});
+	} else {
+		var error = new Error('Not Authorized');
+		error.status = 403;
+		next(error);
+	}
+
+	
 }
 
 // Routes
