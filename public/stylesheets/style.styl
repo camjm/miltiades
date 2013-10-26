@@ -1,30 +1,61 @@
 html
-  min-height: 100%
+  height: 100%
 body
+  height: 100%
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
   margin: 0px
 a
-  color: #00B7FF
-#nav-bar
-  background-color: black
-  height: 40px  
-  ul
-    display: block
-    list-style: none
-    margin: 0px
-    li
-      display: block
-      padding: 10px
-  .menu
-     float: left
-    li
-      float: left 
-  .account
-    float: right
-    margin-left: 10px
-    li
-      float: right
+  color: #52B362
+  font-family: proxima-nova, 'proxima nova', sans-serif
+  font-weight: 600
+  text-decoration: none
+a:hover
+  color: rgb(122, 255, 0)
+h1
+  margin: 0px
+  color: white
+  display: inline
+  text-shadow: 1px 1px 5px #000
+
+#container
+  position: relative
+  min-height: 100%
 .centered
   max-width: 960px
   margin: auto
   height: 100%
+
+header
+  background-color: #52B362
+  padding: 2px
+  border-bottom: 4px solid rgb(122, 255, 0)
+  nav
+    float: right
+    ul
+      display: block
+      list-style: none
+      margin: 0px
+      float: right
+      li
+        display: block
+        padding: 8px 15px
+        float: left
+        a
+          color: white
+          font-weight: normal
+
+#content
+  padding-bottom: 70px
+
+footer
+  position: absolute
+  bottom: 0
+  right: 0
+  left: 0
+  height: 50px
+  text-align:right
+  span, a
+    margin-left: 15px
+
+
+

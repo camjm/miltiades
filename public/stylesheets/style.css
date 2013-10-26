@@ -1,41 +1,70 @@
 html {
-  min-height: 100%;
+  height: 100%;
 }
 body {
+  height: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
 }
 a {
-  color: #00b7ff;
+  color: #52b362;
+  font-family: proxima-nova, 'proxima nova', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
 }
-#nav-bar {
-  background-color: #000;
-  height: 40px;
+a:hover {
+  color: #7aff00;
 }
-#nav-bar ul {
-  display: block;
-  list-style: none;
+h1 {
   margin: 0px;
+  color: #fff;
+  display: inline;
+  text-shadow: 1px 1px 5px #000;
 }
-#nav-bar ul li {
-  display: block;
-  padding: 10px;
-}
-#nav-bar .menu {
-  float: left;
-}
-#nav-bar li {
-  float: left;
-}
-#nav-bar .account {
-  float: right;
-  margin-left: 10px;
-}
-#nav-bar .account li {
-  float: right;
+#container {
+  position: relative;
+  min-height: 100%;
 }
 .centered {
   max-width: 960px;
   margin: auto;
   height: 100%;
+}
+header {
+  background-color: #52b362;
+  padding: 2px;
+  border-bottom: 4px solid #7aff00;
+}
+header nav {
+  float: right;
+}
+header nav ul {
+  display: block;
+  list-style: none;
+  margin: 0px;
+  float: right;
+}
+header nav ul li {
+  display: block;
+  padding: 8px 15px;
+  float: left;
+}
+header nav ul li a {
+  color: #fff;
+  font-weight: normal;
+}
+#content {
+  padding-bottom: 70px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
+  text-align: right;
+}
+footer span,
+footer a {
+  margin-left: 15px;
 }

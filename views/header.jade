@@ -1,14 +1,19 @@
-div#nav-bar
+header
 	div.centered
-		ul.menu
-		ul.account
-			if user
+		nav
+			ul
 				li
-					a(href="/Account")= user.username
+					a(href="/Blog") Blog
 				li
-					a(href="/Logout") Logout
-			else
-				li
-					a(href="/Login") Login
-				li
-					a(href="/Signup") Signup
+					a(href="/About") About
+				if user
+					li
+						a(href="/Account")= user.username
+					li
+						a(href="/Logout") Logout
+				else
+					li
+						a(href="/Login") Login
+					li
+						a(href="/Signup") Signup
+		h1 dupondius

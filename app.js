@@ -2,13 +2,17 @@
 var express = require('express');
 var http = require('http');
 var mongoose = require('mongoose');
+var passport = require('passport');
+
 var blog = require('./routes/blog');
 var index = require('./routes/index');
 var user = require('./routes/user');
-var passport = require('passport');
+
+var auth = require('./middleware/authorization');
 var viewdata = require('./middleware/viewdata');
 var unrouted = require('./middleware/unrouted');
 var errorhandling = require('./middleware/errorhandling');
+
 var app = express();
 
 // Configuration
@@ -41,27 +45,6 @@ app.configure('production', function() {
 // Passport Configuration
 require('./config/passport')();
 
-// Authorization
-function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	req.session.returnUrl = req.url;
-	res.redirect('/login');
-}
-
-function ensureAdmin(req, res, next) {
-	if (req.isAuthenticated() && req.user.admin) {
-		return next();
-	} else {
-		var error = new Error('Not Authorized');
-		error.status = 403;
-		next(error);
-	}
-
-	
-}
-
 // Routes
 app.get('/', index.index);
 app.get('/signup', user.signup);
@@ -73,36 +56,35 @@ app.get('/logout', user.logout);
 // Protected Routes
 app.get(
 	'/users',
-	[ensureAuthenticated,
-	ensureAdmin], 
+	[auth.ensureAuthenticated,
+	auth.ensureAdmin], 
 	user.list);
 app.get(
 	'/account', 
-	ensureAuthenticated, 
+	auth.ensureAuthenticated, 
 	user.account)
 app.get(
 	'/blog', 
-	ensureAuthenticated, 
+	auth.ensureAuthenticated, 
 	blog.list);
 app.get(
 	'/blog/new', 
-	[ensureAuthenticated,
-	ensureAdmin], 
+	[auth.ensureAuthenticated,
+	auth.ensureAdmin], 
 	blog.enterNew);
 app.post(
 	'/blog/new', 
-	[ensureAuthenticated,
-	ensureAdmin],
+	[auth.ensureAuthenticated,
+	auth.ensureAdmin],
 	blog.submitNew);
 app.get(
 	'/blog/:id', 
-	ensureAuthenticated, 
+	auth.ensureAuthenticated, 
 	blog.show);
 app.post(
 	'/blog/addComment', 
-	ensureAuthenticated, 
+	auth.ensureAuthenticated, 
 	blog.addComment);
-
 
 // Mongoose ODM Connection to Database
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost:27017';
@@ -110,7 +92,6 @@ mongoose.connect(connectionString, function(error){
 	if (error) throw error;
 	console.log('Successfully connected to MongoDB');
 });
-
 
 // Start App
 http.createServer(app).listen(app.get('port'), function(){

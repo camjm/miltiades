@@ -2,7 +2,9 @@ doctype 5
 html
 	include head
 	body
-		include header
-		div#content.centered
-			h1= title
-			block content
+		div#container
+			include header
+			div#content.centered
+				h2= title
+				block content
+			include footer
