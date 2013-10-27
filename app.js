@@ -46,7 +46,7 @@ app.configure('production', function() {
 require('./config/passport')();
 
 // Routes
-app.get('/', index.index);
+app.get('/', blog.list);
 app.get('/signup', user.signup);
 app.post('/signup', user.signupPost);
 app.get('/login', user.login);
@@ -63,10 +63,10 @@ app.get(
 	'/account', 
 	auth.ensureAuthenticated, 
 	user.account)
-app.get(
-	'/blog', 
-	auth.ensureAuthenticated, 
-	blog.list);
+// app.get(
+// 	'/blog', 
+// 	auth.ensureAuthenticated, 
+// 	blog.list);
 app.get(
 	'/blog/new', 
 	[auth.ensureAuthenticated,

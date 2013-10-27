@@ -1,19 +1,12 @@
-header
-	div.centered
-		nav
-			ul
-				li
-					a(href="/Blog") Blog
-				li
-					a(href="/About") About
-				if user
-					li
-						a(href="/Account")= user.username
-					li
-						a(href="/Logout") Logout
-				else
-					li
-						a(href="/Login") Login
-					li
-						a(href="/Signup") Signup
-		h1 dupondius
+header.centered
+	h1 dupondius
+nav
+	ul.centered
+		li
+			a(href="/Blog") Blog
+		li
+			a(href="/About") About
+		li
+			a(href="/Archives") Archives
+		li
+			a(href="mailto:cam@mackay.net.nz") Contact
