@@ -1,11 +1,11 @@
 // Dependencies
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var moment = require('moment');
+var util = require('util');
 
 
 // Schema
-
 var ArticleSchema = new Schema({
 	title: {type : String, default : '', trim : true},
 	author: {type : String, default : '', trim : true},
@@ -18,9 +18,18 @@ var ArticleSchema = new Schema({
 	date: { type: Date, default: Date.now }
 });
 
+// Virtuals
+ArticleSchema.virtual('dateText').get(function() {
+	return moment(this.date).format('D MMMM, YYYY');
+});
+
+// Virtuals
+ArticleSchema.virtual('commentsText').get(function() {
+	return util.format('Comments (%d)', this.comments.length);
+});
+
 
 // Validation
-
 ArticleSchema.path('title').validate(function(title) {
 	return title.length > 0;
 }, 'Article title cannot be blank');
@@ -31,7 +40,6 @@ ArticleSchema.path('title').validate(function(title) {
 
 
 // Methods
-
 ArticleSchema.methods = {
 
 	addComment: function(user, comment) {

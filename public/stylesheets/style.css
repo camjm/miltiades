@@ -12,7 +12,8 @@ nav,
 article {
   display: block;
 }
-p {
+p,
+h2 {
   margin: 0px;
 }
 a {
@@ -21,7 +22,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #7aff00;
+  color: #a13fd8;
 }
 .centered {
   margin: 0 auto;
@@ -46,20 +47,22 @@ nav ul {
 }
 nav ul li {
   float: left;
+  text-align: center;
+  width: 150px;
 }
 nav ul li a {
-  display: block;
-  margin-right: 20px;
-  width: 140px;
+  display: inline;
   font-size: 14px;
   font-weight: normal;
   line-height: 44px;
-  text-align: center;
   text-decoration: none;
   color: #eee;
 }
 nav ul li a:hover {
   color: #fff;
+  background-color: #306400;
+  padding: 6px 8px;
+  border-radius: 3px;
 }
 nav ul li.selected a {
   color: #fff;
@@ -67,6 +70,26 @@ nav ul li.selected a {
 #content {
   margin-top: 95px;
   padding-bottom: 95px;
+}
+article {
+  margin-bottom: 50px;
+}
+article header {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-style: dotted;
+  border-width: 0px 0px 1px 0px;
+  border-color: #c7c7c7;
+}
+article .subtitle {
+  font-size: 12px;
+  color: #777;
+}
+article .subtitle time {
+  margin-right: 20px;
+}
+article .body {
+  line-height: 20px;
 }
 footer {
   position: absolute;
