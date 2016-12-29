@@ -6,15 +6,25 @@ exports.list = function (req, res) {
 			throw error;
 		} else {
 			res.render('blog/list.jade', {
-	    		title: 'Blog',
-	    		articles: articles
+				title: 'Blog',
+				articles: articles
 			});
 		}
 	});
 };
 
 exports.show = function (req, res) {
-	// TODO
+	var id = req.params.id;
+	Article.findById(id, function(error, article){
+		if (error) {
+			throw error;
+		} else {
+			res.render('blog/show.jade', {
+				title: 'Blog Post',
+				article: article
+			});
+		}
+	});
 };
 
 exports.addComment = function (req, res) {

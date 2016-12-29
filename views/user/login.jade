@@ -4,15 +4,13 @@ block content
 	form(method="post")
 		div
 			div
-				span Login :
+				label Login
 				input(type="text", name="username", id="loginUsername")
 			div
-				span Password :
+				label Password
 				input(type="text", name="password", id="loginPassword")
 			div#loginSubmit
 				input(type="submit", value="Login")
 	if message
 		#validationErrors
 			p= message
-	div
-		a(href="/Signup") Signup

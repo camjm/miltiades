@@ -28,6 +28,10 @@ ArticleSchema.virtual('commentsText').get(function() {
 	return util.format('Comments (%d)', this.comments.length);
 });
 
+// Pre-Save Hook
+ArticleSchema.pre('save', function(next) {
+	//TODO
+});
 
 // Validation
 ArticleSchema.path('title').validate(function(title) {

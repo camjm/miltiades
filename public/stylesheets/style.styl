@@ -1,4 +1,4 @@
-// general styling
+// qualified names
 html
   height: 100%
 body
@@ -7,90 +7,102 @@ body
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
 header, footer, nav, article
   display: block
-p, h2
+h1, h2, p
   margin: 0px
 a
   color: #52B362
   font-weight: 600
   text-decoration: none
 a:hover
-  color: #A13FD8 
+  color: #A13FD8
+input
+  border-width: 1px
+  border-style: solid
+label
+  display: inline-block
+  width: 80px
+  padding: 2px
+
+// general styling
+::selection
+  background: #fe57a1
+  color: white
+  text-shadow: none
 .centered
-  margin: 0 auto  
+  margin: 0 auto
   max-width: 940px
 #container
   min-height: 100%
   position: relative
-
-// header styling
-h1 
-  margin: 0px
-  padding: 20px
-nav
-  position: absolute 
-  left: 0
-  width: 100%
-  background-color: #52B362
-  ul
-    list-style: none
-    li
-      float: left
-      text-align: center
-      width: 150px
-      a
-        display: inline
-        font-size: 14px
-        font-weight: normal
-        line-height: 44px
-        text-decoration: none
-        color: #eee
-      a:hover
-        color: #fff
-        background-color: rgb(48, 100, 0)
-        padding: 6px 8px
-        border-radius: 3px
-    li.selected
-      a
-        color: #fff
-
-// main content styling
 #content
-  margin-top: 95px
-  padding-bottom: 95px
+  margin-top: 35px
+  padding-bottom: 15px
+
+// navigation styling
+.nav
+  list-style: none
+  background-color: #52B362
+  border-radius: 3px
+  border-width: 1px;
+  border-style: solid;
+  border-color: #2a6f2d;
+.nav-item
+  display: inline-block
+  text-align: center
+  width: 150px
+.nav-item
+  a
+    display: inline
+    font-size: 14px
+    font-weight: normal
+    line-height: 44px
+    text-decoration: none
+    color: #eee
+  a:hover
+    color: #fff
+    background-color: #76DB82
+    padding: 6px 8px
+    border-radius: 3px
+.nav-current
+  border-style: solid;
+  border-width: 5px 0px 5px 0px;
+  border-color: rgb(42, 111, 45);
+  a
+    color: #fff
+    font-style: italic
 
 // article styling
-article
+.article
   margin-bottom: 50px
-  header
-    margin-bottom: 10px
-    padding-bottom: 5px
-    border-style: dotted
-    border-width: 0px 0px 1px 0px
-    border-color: #C7C7C7
-  .subtitle
-    font-size: 12px
-    color: #777
-    time
-      margin-right: 20px
-  .body
-    line-height: 20px
+.article-header
+  margin-bottom: 10px
+  padding-bottom: 5px
+  border-style: dotted
+  border-width: 0px 0px 1px 0px
+  border-color: #C7C7C7
+.article-title
+  a
+    color: black
+  a:hover
+    color: #A13FD8
+.article-subtitle
+  font-size: 12px
+  color: #777
+  time
+    margin-right: 20px
+.article-body
+  line-height: 25px
 
 // footer styling
-footer
+.footer
   position: absolute
-  left: 0
   bottom: 0
   width: 100%
-  margin-top: 20px
-  padding: 20px 0px
+  padding: 10px 0px
   font-size: 12px
-  color: rgb(119, 119, 119)
-  border-color: #979797
-  border-style: solid
-  border-width: 1px 0px 0px 0px
-  background-color: #ECECEC
-  div
-    .right
-      float: right
-    .left
-      float: left
+  color: #fff
+  background-color: #214924
+  .powered-by
+    float: right
+  .copyright
+    float: left

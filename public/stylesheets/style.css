@@ -12,8 +12,9 @@ nav,
 article {
   display: block;
 }
-p,
-h2 {
+h1,
+h2,
+p {
   margin: 0px;
 }
 a {
@@ -24,6 +25,20 @@ a {
 a:hover {
   color: #a13fd8;
 }
+input {
+  border-width: 1px;
+  border-style: solid;
+}
+label {
+  display: inline-block;
+  width: 80px;
+  padding: 2px;
+}
+::selection {
+  background: #fe57a1;
+  color: #fff;
+  text-shadow: none;
+}
 .centered {
   margin: 0 auto;
   max-width: 940px;
@@ -32,25 +47,24 @@ a:hover {
   min-height: 100%;
   position: relative;
 }
-h1 {
-  margin: 0px;
-  padding: 20px;
+#content {
+  margin-top: 35px;
+  padding-bottom: 15px;
 }
-nav {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  background-color: #52b362;
-}
-nav ul {
+.nav {
   list-style: none;
+  background-color: #52b362;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #2a6f2d;
 }
-nav ul li {
-  float: left;
+.nav-item {
+  display: inline-block;
   text-align: center;
   width: 150px;
 }
-nav ul li a {
+.nav-item a {
   display: inline;
   font-size: 14px;
   font-weight: normal;
@@ -58,56 +72,59 @@ nav ul li a {
   text-decoration: none;
   color: #eee;
 }
-nav ul li a:hover {
+.nav-item a:hover {
   color: #fff;
-  background-color: #306400;
+  background-color: #76db82;
   padding: 6px 8px;
   border-radius: 3px;
 }
-nav ul li.selected a {
+.nav-current {
+  border-style: solid;
+  border-width: 5px 0px 5px 0px;
+  border-color: #2a6f2d;
+}
+.nav-current a {
   color: #fff;
+  font-style: italic;
 }
-#content {
-  margin-top: 95px;
-  padding-bottom: 95px;
-}
-article {
+.article {
   margin-bottom: 50px;
 }
-article header {
+.article-header {
   margin-bottom: 10px;
   padding-bottom: 5px;
   border-style: dotted;
   border-width: 0px 0px 1px 0px;
   border-color: #c7c7c7;
 }
-article .subtitle {
+.article-title a {
+  color: #000;
+}
+.article-title a:hover {
+  color: #a13fd8;
+}
+.article-subtitle {
   font-size: 12px;
   color: #777;
 }
-article .subtitle time {
+.article-subtitle time {
   margin-right: 20px;
 }
-article .body {
-  line-height: 20px;
+.article-body {
+  line-height: 25px;
 }
-footer {
+.footer {
   position: absolute;
-  left: 0;
   bottom: 0;
   width: 100%;
-  margin-top: 20px;
-  padding: 20px 0px;
+  padding: 10px 0px;
   font-size: 12px;
-  color: #777;
-  border-color: #979797;
-  border-style: solid;
-  border-width: 1px 0px 0px 0px;
-  background-color: #ececec;
+  color: #fff;
+  background-color: #214924;
 }
-footer div .right {
+.footer .powered-by {
   float: right;
 }
-footer div .left {
+.footer .copyright {
   float: left;
 }

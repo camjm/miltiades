@@ -1,8 +1,9 @@
-article
-	header
-		h2.title= article.title
-		p.subtitle
+article.article
+	header.article-header
+		h2.article-title
+			a(href="/blog/" + article.id)= article.title
+		p.article-subtitle
 			|Posted on 
 			time.date= article.dateText
-			a(href="/").comments= article.commentsText
-	p.body= article.body
+			a(href="/blog/" + article.id).comments= article.commentsText
+	p.article-body= article.body

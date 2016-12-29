@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+
+	article.article
+		header.article-header
+			h2.article-title= article.title
+		p.article-body= article.body
+
+	section#comments
+		for comment in article.comments
+			include comment
+
+		form(method="post", action="/blog/addComment")
+			input(type="hidden", name="_id", value=article._id.toHexString())
+			div
+				span Author :
+				input(type="text", name="person", id="addCommentPerson")
+			div
+				span Comment :
+				textarea(name="comment", rows=5, id="addCommentComment")
+			div#editArticleSubmit
+				input(type="submit", value="Send")

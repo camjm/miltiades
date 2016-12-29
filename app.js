@@ -26,15 +26,15 @@ app.configure( function() {
 	app.use(express.methodOverride());
 	app.use(require('stylus').middleware({src: __dirname + '/public'}));
 	app.use(passport.initialize());
-  	app.use(passport.session());
-  	app.use(viewdata);
+	app.use(passport.session());
+	app.use(viewdata);
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 	app.use(unrouted);
 	app.use(errorhandling);
 });
 
-app.configure('development', function() {	
+app.configure('development', function() {
 	app.enable('verbose errors');
 });
 
@@ -47,6 +47,7 @@ require('./config/passport')();
 
 // Routes
 app.get('/', blog.list);
+app.get('/blog/:id', blog.show);
 app.get('/signup', user.signup);
 app.post('/signup', user.signupPost);
 app.get('/login', user.login);
@@ -57,33 +58,25 @@ app.get('/logout', user.logout);
 app.get(
 	'/users',
 	[auth.ensureAuthenticated,
-	auth.ensureAdmin], 
+	auth.ensureAdmin],
 	user.list);
 app.get(
-	'/account', 
-	auth.ensureAuthenticated, 
-	user.account)
-// app.get(
-// 	'/blog', 
-// 	auth.ensureAuthenticated, 
-// 	blog.list);
+	'/account',
+	auth.ensureAuthenticated,
+	user.account);
 app.get(
-	'/blog/new', 
+	'/blog/new',
 	[auth.ensureAuthenticated,
-	auth.ensureAdmin], 
+	auth.ensureAdmin],
 	blog.enterNew);
 app.post(
-	'/blog/new', 
+	'/blog/new',
 	[auth.ensureAuthenticated,
 	auth.ensureAdmin],
 	blog.submitNew);
-app.get(
-	'/blog/:id', 
-	auth.ensureAuthenticated, 
-	blog.show);
 app.post(
-	'/blog/addComment', 
-	auth.ensureAuthenticated, 
+	'/blog/addComment',
+	auth.ensureAuthenticated,
 	blog.addComment);
 
 // Mongoose ODM Connection to Database
